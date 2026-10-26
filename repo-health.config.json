@@ -1,0 +1,18 @@
+{
+  "weights": {
+    "staleDocs": 15,
+    "openPrs": 15,
+    "checks": 25,
+    "tests": 20,
+    "ruleDrift": 15,
+    "staleBranches": 10
+  },
+  "thresholds": {
+    "docsStaleDays": 90,
+    "prAgeDays": 14,
+    "branchStaleDays": 90,
+    "maxBranchesChecked": 30
+  },
+  "skipArchived": true,
+  "skipForks": true
+}

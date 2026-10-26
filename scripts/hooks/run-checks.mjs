@@ -24,7 +24,7 @@ const FLOOR = {
 // put slow suites in pre-push. "npm run x --if-present" is a no-op when x is missing;
 // "needs" skips the check when that file is absent (no package.json, no npm).
 const REPO = {
-  'pre-commit': [{ name: 'lint', run: 'npm run lint --if-present', needs: 'package.json' }],
+  'pre-commit': [{ name: 'types', run: 'npm run typecheck --if-present', needs: 'node_modules' }],
   'pre-push': [
     { name: 'types', run: 'npm run typecheck --if-present', needs: 'package.json' },
     { name: 'tests', run: 'npm run test --if-present', needs: 'package.json' },

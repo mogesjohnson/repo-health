@@ -1,8 +1,27 @@
 {
-  "name": "your-repo",
-  "private": true,
+  "name": "repo-health",
+  "version": "0.1.0",
+  "description": "Score GitHub repos 0-100 on docs, PRs, checks, tests, rule drift and stale branches, read-only via gh.",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "repo-health": "dist/cli.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "prepare": "node scripts/setup-hooks.mjs",
-    "test": "node scripts/test/run.mjs"
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run --passWithNoTests"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
   }
 }

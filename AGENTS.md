@@ -6,16 +6,17 @@
 
 ## What this repo is
 
-<!-- REPO-SPECIFIC: one or two sentences. What it does, who uses it, current version. -->
+<!-- REPO-SPECIFIC -->
+`repo-health` (v0.1.0) is a TypeScript CLI that scores an owner's GitHub repos 0-100 on docs,
+open PRs, checks, tests, rule drift and stale branches, read-only through `gh api`, into HEALTH.md.
 <!-- /REPO-SPECIFIC -->
 
 ## Commands
 
 Run these from the repo root. They are the only definition of "checks pass".
 
-<!-- REPO-SPECIFIC: replace with the real commands. Delete any that do not exist. -->
+<!-- REPO-SPECIFIC -->
 - Install: `npm ci`
-- Lint: `npm run lint`
 - Types: `npm run typecheck`
 - Test: `npm test`
 - Build: `npm run build`
@@ -24,7 +25,10 @@ Run these from the repo root. They are the only definition of "checks pass".
 
 ## Where things live
 
-<!-- REPO-SPECIFIC: five to ten lines. Path, then what it holds. No full tree. -->
+<!-- REPO-SPECIFIC -->
+- `src/` the CLI, collectors and scoring (built to `dist/`); unit tests sit beside them; `repo-health.config.json` holds defaults.
+- `scripts/` BEST-OF-AI-DEV template checks and hooks (commit format, PR size, secrets).
+- `docs/tasks/`, `docs/decisions/` task specs and ADRs
 <!-- /REPO-SPECIFIC -->
 
 ## How work flows
@@ -59,7 +63,8 @@ Read RULES.md before your first commit. The short version:
 
 ## Repo-specific rules
 
-<!-- REPO-SPECIFIC: at most ten lines. Domain rules only this repo needs
-     (for example "evidence receipts are sanitized" or "the reference site is read-only").
-     Anything that applies to every repo belongs in BEST-OF-AI-DEV instead. -->
+<!-- REPO-SPECIFIC -->
+- No runtime dependencies. Dev dependencies only: typescript, vitest, @types/node.
+- GitHub access is read-only: only GET calls through `gh api` and `gh repo list`.
+- Never put a private repo name in the repo; grep against the private list before each push.
 <!-- /REPO-SPECIFIC -->

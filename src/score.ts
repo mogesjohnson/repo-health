@@ -30,9 +30,14 @@ export function relativeLinks(markdown: string): string[] {
     const url = m[1];
     if (/^([a-z][a-z0-9+.-]*:|#|\/\/)/i.test(url)) continue;
     const path = url.split(/[?#]/)[0];
-    if (path) out.add(decodeURIComponent(path));
+    if (path) out.add(safeDecode(path));
   }
   return [...out];
+}
+
+/** decodeURIComponent, but a malformed escape such as a bare `%` keeps the raw text. */
+function safeDecode(s: string): string {
+  try { return decodeURIComponent(s); } catch { return s; }
 }
 
 /** Resolves a README-relative link to a repo path; null when it escapes the repo. */

@@ -43,6 +43,9 @@ describe('stale docs', () => {
   it('finds relative links and skips urls, anchors and code blocks', () => {
     expect(relativeLinks('[a](a.md) [b](https://b) [c](#c) ![d](img/d.png "t")\n```\n[e](e.md)\n```')).toEqual(['a.md', 'img/d.png']);
   });
+  it('keeps a link with a malformed percent escape instead of throwing', () => {
+    expect(relativeLinks('[a](docs/100%.md) [b](my%20file.md)')).toEqual(['docs/100%.md', 'my file.md']);
+  });
   it('resolves links against the README folder', () => {
     expect(resolveLink('docs/README.md', '../src/x.ts')).toBe('src/x.ts');
     expect(resolveLink('README.md', './docs/')).toBe('docs');

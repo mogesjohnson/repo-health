@@ -84,6 +84,14 @@ describe('tests', () => {
     expect(hasTestFiles(['tests'])).toBe(true);
     expect(hasTestFiles(['src/contest.ts', 'latest/x.md'])).toBe(false);
   });
+  it('detects spec, pytest, spec-folder and Java/C# test class conventions', () => {
+    for (const p of ['src/app.spec.ts', 'pkg/test_models.py', 'spec/models_spec.rb', 'a/FooTest.java', 'b/FooTests.cs', 'c/FooTest.kt']) {
+      expect(hasTestFiles([p]), p).toBe(true);
+    }
+    for (const p of ['src/Contest.java', 'src/latest_models.py', 'docs/inspect.md', 'src/specimen.ts']) {
+      expect(hasTestFiles([p]), p).toBe(false);
+    }
+  });
   it('treats the npm init placeholder as no test script', () => {
     expect(scoreTests(neglected()).score).toBe(0);
     expect(scoreTests({ ...healthy(), packageJson: null }).score).toBe(100);

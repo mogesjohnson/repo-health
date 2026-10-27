@@ -61,7 +61,7 @@ Each category scores 0-100 (100 minus its deductions). The repo score is the wei
 | Docs (`staleDocs`) | 15 | No README: all 100. README's last commit more than `docsStaleDays` behind the branch's latest commit: 30, plus 10 per extra 30 days (max 60). Each broken relative link or image in the README (checked against the git tree): 15 (max 50). |
 | PRs (`openPrs`) | 15 | 5 per open PR (max 40), 10 per PR older than `prAgeDays` (max 40), 5 per draft (max 20). |
 | Checks (`checks`) | 25 | On the default branch HEAD: any failing check run or a failing combined status: 100. No check runs and no statuses: 60. Still pending: 10. |
-| Tests (`tests`) | 20 | No `*.test.*`, `*_test.*`, `test/`, `tests/` or `__tests__` in the tree: 60. A package.json with no real `test` script: 40. No package.json and no test files: another 40. |
+| Tests (`tests`) | 20 | No `*.test.*`, `*.spec.*`, `*_test.*`, `*_spec.*`, `test_*.py`, `*Test(s).java|kt|cs`, `test/`, `tests/`, `spec/` or `__tests__` in the tree: 60. A package.json with no real `test` script: 40. No package.json and no test files: another 40. |
 | Rules (`ruleDrift`) | 15 | Against BEST-OF-AI-DEV: no `AGENTS.md`: 35, no `RULES.md`: 35, no size gate (`scripts/check/pr-size*` or `.github/workflows/pr-checks.yml`): 30. |
 | Branches (`staleBranches`) | 10 | 10 per non-default branch with no commits in `branchStaleDays` (first `maxBranchesChecked` branches only). |
 

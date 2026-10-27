@@ -96,10 +96,12 @@ export function scoreChecks(d: RepoData): CategoryScore {
   ]);
 }
 
-const TEST_FILE = /(^|\/)(test|tests|__tests__)\/|\.test\.[a-z]+$|_test\.[a-z]+$|(^|\/)(test|tests|__tests__)$/i;
+const TEST_FILE = /(^|\/)(test|tests|__tests__|spec)(\/|$)|\.(test|spec)\.[a-z]+$|_(test|spec)\.[a-z]+$|(^|\/)test_[^/]*\.py$/i;
+// Case-sensitive, so `Contest.java` is not a test but `FooTest.java` and `FooTests.cs` are.
+const TEST_CLASS_FILE = /[a-z0-9]Tests?\.(java|kt|cs)$/;
 
 export function hasTestFiles(tree: string[]): boolean {
-  return tree.some((p) => TEST_FILE.test(p));
+  return tree.some((p) => TEST_FILE.test(p) || TEST_CLASS_FILE.test(p));
 }
 
 export function scoreTests(d: RepoData): CategoryScore {
@@ -107,7 +109,7 @@ export function scoreTests(d: RepoData): CategoryScore {
   const hasScript = Boolean(script && !/no test specified/.test(script));
   const files = hasTestFiles(d.tree);
   return category('tests', [
-    [files ? 0 : 60, 'Add tests; no *.test.*, *_test.*, test/, tests/ or __tests__ files were found.'],
+    [files ? 0 : 60, 'Add tests; no *.test.*, *.spec.*, *_test.*, test_*.py, *Test(s).java|kt|cs files or test/, tests/, spec/, __tests__ folders were found.'],
     [hasScript || !d.packageJson ? 0 : 40, 'Add a "test" script to package.json.'],
     [!d.packageJson && !files ? 40 : 0, 'Add a test command so CI can run the tests.'],
   ]);
